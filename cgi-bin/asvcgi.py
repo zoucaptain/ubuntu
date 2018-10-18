@@ -17,7 +17,7 @@ class AdvCGI(object):
     <BODY><H2>Advanced CGI Demo Form</H2> 
     <FORM METHOD=post ACTION="%s" ENCTYPE="multipart/form-data">
     <H3>My Cookie Setting</H3>
-    <LI><CODE><B>CPPUSER=%s</B></CODE>
+    <LI><CODE><B>CPPuser=%s</B></CODE>
     <H3>Enter cookie value<BR>
     <INPUT NAME=cookie VALUE="%s">(<I>optional</I>)</H3>
     <H3>Enter your name<BR>
@@ -71,7 +71,7 @@ class AdvCGI(object):
         Advanced CGI Demo</TITLE></HEAD>
         <BODY><H3>ERROR</H3>
         <B>%s</B><p>
-        <FORM><INPUT TYPE=buttuon VALUE=Back
+        <FORM><INPUT TYPE=button VALUE=Back
         ONCLICK="window.history.back()"></FROM>
         </BODY></HTML>
         '''
@@ -96,7 +96,7 @@ class AdvCGI(object):
 
     def setCPPCookies(self):
         for eachCookie in self.cookies.keys():
-            print 'Set-Cookie:CPP%s=%s;path=/' % (eachCookie, unquote(self.cookies[eachCookie]))
+            print 'Set-Cookie:CPP%s=%s;path=/' % (eachCookie, quote(self.cookies[eachCookie]))
 
     def doResults(self):
         MAXBYTES = 1024
@@ -150,8 +150,8 @@ class AdvCGI(object):
                     self.langs.append(eachLang.value)
                 else:
                     self.langs.append(langdata.value)
-            else:
-                self.error = 'At least one language required.'
+        else:
+            self.error = 'At least one language required.'
         if form.has_key('upfile'):
             upfile = form["upfile"]
             self.fn = upfile.filename or ''
